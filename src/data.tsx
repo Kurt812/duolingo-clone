@@ -1,5 +1,5 @@
 const data = {
-  options: ["swim", "run", "clap", "we", "they", "I"],
+  options: ["swim", "run", "clap", "we", "they", "I", "think"],
   sentence: [
     {
       word: "I",

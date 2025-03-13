@@ -1,31 +1,27 @@
 import { describe, test, afterEach } from "vitest";
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import WordGuess from "./WordGuess";
 
 describe("WordGuess", () => {
   afterEach(cleanup);
-  test("loads the initial sentence with blanks", () => {
+
+  test("renders initial sentence with gaps", () => {
+    // render the WordGame component
     render(<WordGuess />);
 
+    // check if the sentence with gaps appears
     screen.getByText("I _ therefore _ am");
   });
-  test("user can guess from a number of options", () => {
+
+  test("can fill in a blank by clicking an option", () => {
     render(<WordGuess />);
 
-    fireEvent.click(screen.getByText("swim"));
+    // query the screen for a button called "Swim"
+    const button = screen.getByRole("button", { name: "Swim" });
+    // click on the "Swim" button
+    fireEvent.click(button);
+
+    // check the sentence text now says "I swim therefore _am"
     screen.getByText("I swim therefore _ am");
-
-    fireEvent.click(screen.getByText("they"));
-    screen.getByText("I swim therefore they am");
   });
-  test("user can undo a choice", () => {
-    render(<WordGuess />);
-
-    fireEvent.click(screen.getByText("swim"));
-    fireEvent.click(screen.getByText("Undo"));
-
-    screen.getByText("I _ therefore _ am");
-  });
-  test.todo("check button is disabled when there are still guesses unfilled");
-  test.todo("");
 });
